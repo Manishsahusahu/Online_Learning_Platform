@@ -5,6 +5,7 @@ const otpGenerator = require("otp-generator");
 const Profile = require("../models/profile.model.js");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const mailSender = require("../utils/mailSender.utils.js");
 
 const otpCreator = () => {
     const otp = otpGenerator.generate(6, {
@@ -157,5 +158,50 @@ exports.login = async (req, res, next) => {
         });
     } catch (error) {
         return next(new AppError(error.message, 400));
+    }
+};
+
+exports.changePassword = async (req, res, next) => {
+    try {
+        const { email, oldPassword, newPassword, confirmPassword } = req.body;
+        if (!email || !oldPassword || !newPassword || !confirmPassword)
+            return next(new AppError("All fields are mandatory", 400));
+
+        if (newPassword !== confirmPassword)
+            return next(
+                new AppError(
+                    "New password and confirm password are not matching",
+                    400
+                )
+            );
+
+        const user = await User.findOne({ email });
+        if (!user) return next(new AppError("User does not exits", 400));
+
+        if (!(await bcrypt.compare(oldPassword, user.password)))
+            return next(new AppError("Old password is invalid", 400));
+
+        user.password = newPassword;
+        await user.save();
+        user.password = undefined;
+
+        const sendMailResponse = await mailSender(
+            email,
+            "Change password",
+            "Password has been changed successfully!"
+        );
+
+        res.status(200).json({
+            success: true,
+            message: "Password has changed successfully",
+            sendMailResponse,
+        });
+    } catch (error) {
+        return next(
+            new AppError(
+                `Error while changing the password ${error.message}`,
+                400
+            )
+        );
     }
 };
