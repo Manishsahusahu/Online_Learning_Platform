@@ -2,17 +2,19 @@ const mongoose = require("mongoose");
 
 const tagSchema = new mongoose.Schema(
     {
-        name:{
+        name: {
             type: String,
-            required: true
+            required: true,
         },
-        description:{
-            type:String,
+        description: {
+            type: String,
         },
-        course:{
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Course"
-        }
+        courses: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Course",
+            },
+        ],
     },
     { timestamps: true }
 );
