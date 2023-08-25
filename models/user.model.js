@@ -25,7 +25,7 @@ const userSchema = new mongoose.Schema(
         accountType: {
             type: String,
             required: true,
-            enum: ["Admin", "User", "Instructor"],
+            enum: ["Admin", "Student", "Instructor"],
         },
         additionalInformation: {
             type: mongoose.Schema.Types.ObjectId,
@@ -46,9 +46,9 @@ const userSchema = new mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: "CourseProgress",
         },
-        token:{
-            type: String
-        }
+        token: {
+            type: String,
+        },
     },
     { timestamps: true }
 );
