@@ -1,5 +1,5 @@
 const Course = require("../models/course.model");
-const Tag = require("../models/tag.model");
+const Category = require("../models/category.model");
 const User = require("../models/user.model");
 const { default: AppError } = require("../utils/error.utils");
 const { imageUploadToCloudinary } = require("../utils/imageUpload.util");
@@ -11,7 +11,7 @@ exports.createCourse = async (req, res, next) => {
             courseDescription,
             whatYouWillLearn,
             price,
-            tagId,
+            categoryId,
         } = req.body;
         const thumbnail = req.files.thumbnailImage;
 
@@ -20,7 +20,7 @@ exports.createCourse = async (req, res, next) => {
             !courseDescription ||
             !whatYouWillLearn ||
             !price ||
-            !tag ||
+            !category ||
             !thumbnail
         )
             return next(new AppError("All fields are mandatory", 500));
@@ -29,8 +29,8 @@ exports.createCourse = async (req, res, next) => {
         const instructor = await User.findById(userId);
         if (!instructor) return next(new AppError("Instructor not found", 500));
 
-        const tag = await Tag.findById(tagId);
-        if (!tag) return next(new AppError("Tag not found", 500));
+        const category = await Category.findById(categoryId);
+        if (!category) return next(new AppError("category not found", 500));
 
         const thumbnailImage = await imageUploadToCloudinary(
             thumbnail,
@@ -43,7 +43,7 @@ exports.createCourse = async (req, res, next) => {
             instructor: userId,
             whatYouWillLearn,
             price,
-            tag: tagId,
+            category: categoryId,
             thumbnail: thumbnailImage.secure_url,
         });
         await course.save();
@@ -58,8 +58,8 @@ exports.createCourse = async (req, res, next) => {
             { new: true }
         );
 
-        await Tag.findByIdAndUpdate(
-            tagId,
+        await Category.findByIdAndUpdate(
+            categoryId,
             {
                 $push: {
                     courses: course._id,
