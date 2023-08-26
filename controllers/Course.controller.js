@@ -12,6 +12,7 @@ exports.createCourse = async (req, res, next) => {
             whatYouWillLearn,
             price,
             categoryId,
+            tag,
         } = req.body;
         const thumbnail = req.files.thumbnailImage;
 
@@ -21,7 +22,8 @@ exports.createCourse = async (req, res, next) => {
             !whatYouWillLearn ||
             !price ||
             !category ||
-            !thumbnail
+            !thumbnail ||
+            !tag
         )
             return next(new AppError("All fields are mandatory", 500));
 
@@ -43,6 +45,7 @@ exports.createCourse = async (req, res, next) => {
             instructor: userId,
             whatYouWillLearn,
             price,
+            tag: tag,
             category: categoryId,
             thumbnail: thumbnailImage.secure_url,
         });
@@ -102,5 +105,45 @@ exports.getAllCourses = async function (req, res, next) {
         });
     } catch (error) {
         return next(new AppError(error.message, 500));
+    }
+};
+
+exports.getCourseDetails = async function (req, res, next) {
+    try {
+        const { courseId } = req.body;
+        if (!courseId)
+            return next(new AppError("All fields are mandatory", 400));
+
+        const courseDetails = await Course.findById(courseId)
+            .populate({
+                path: "instructor",
+                populate: {
+                    path: "additionalInformation",
+                },
+            })
+            .populate("category")
+            .populate("ratingAndReviews")
+            .populate({
+                path: "courseContent",
+                populate: {
+                    path: "subSection",
+                },
+            })
+            .populate({
+                path: "students",
+                populate: {
+                    path: "additionalInformation",
+                },
+            })
+            .exec();
+        if (!courseDetails)
+            return next(new AppError("Course details not found", 400));
+        res.status(200).json({
+            success: true,
+            message: "Course details are here",
+            courseDetails,
+        });
+    } catch (error) {
+        return next(new AppError(error.message, 400));
     }
 };
