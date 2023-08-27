@@ -1,15 +1,15 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Route, Routes } from "react-router-dom";
+import "./App.css";
+import Home from "./Pages/Home";
 
 function App() {
-
   return (
-    <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
-  )
+    <div className="w-screen min-h-screen bg-richblack-900 flex flex-col font-inter">
+      <Routes>
+        <Route path="/" element={<Home />} />
+      </Routes>
+    </div>
+  );
 }
 
-export default App
+export default App;
