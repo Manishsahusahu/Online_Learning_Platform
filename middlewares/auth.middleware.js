@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/user.model.js");
-const { default: AppError } = require("../utils/error.utils.js");
+const { AppError } = require("../utils/error.utils.js");
 
 exports.auth = async (req, res, next) => {
     try {
@@ -13,7 +13,6 @@ exports.auth = async (req, res, next) => {
 
         const decode = jwt.verify(token, process.env.JWT_SECRET);
 
-        console.log(decode);
         req.user = decode;
         next();
     } catch (error) {

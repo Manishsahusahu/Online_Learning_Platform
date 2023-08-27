@@ -7,13 +7,14 @@ const {
     getEnrolledCourses,
     updateDisplayPicture,
 } = require("../controllers/Profile.controller");
-const { auth } = require("../middlewares/auth.middleware");
+const { auth, isAdmin } = require("../middlewares/auth.middleware");
 
-router.delete("/deleteProfile", deleteAccount);
-router.put("updateprofile", auth, updateProfile);
+router.delete("/deleteProfile", auth, deleteAccount);
+router.put("/updateProfile", auth, updateProfile);
 router.get("/getuserdetails", auth, getAllUserDetails);
 
 router.get("/getenrolledcourses", auth, getEnrolledCourses);
 router.put("/updateDisplayPicture", auth, updateDisplayPicture);
+
 
 module.exports = router;

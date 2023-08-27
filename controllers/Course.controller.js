@@ -1,7 +1,7 @@
 const Course = require("../models/course.model");
 const Category = require("../models/category.model");
 const User = require("../models/user.model");
-const { default: AppError } = require("../utils/error.utils");
+const { AppError } = require("../utils/error.utils");
 const { imageUploadToCloudinary } = require("../utils/imageUpload.util");
 
 exports.createCourse = async (req, res, next) => {
@@ -21,19 +21,22 @@ exports.createCourse = async (req, res, next) => {
             !courseDescription ||
             !whatYouWillLearn ||
             !price ||
-            !category ||
+            !categoryId ||
             !thumbnail ||
             !tag
         )
             return next(new AppError("All fields are mandatory", 500));
 
+            console.log('we are in create course controller')
         const userId = req.user.id;
         const instructor = await User.findById(userId);
+        console.log(instructor)
         if (!instructor) return next(new AppError("Instructor not found", 500));
 
         const category = await Category.findById(categoryId);
         if (!category) return next(new AppError("category not found", 500));
 
+        console.log('category is ', category)
         const thumbnailImage = await imageUploadToCloudinary(
             thumbnail,
             process.env.FOLDER_NAME
@@ -122,7 +125,7 @@ exports.getCourseDetails = async function (req, res, next) {
                 },
             })
             .populate("category")
-            .populate("ratingAndReviews")
+            // .populate("ratingAndReviews")
             .populate({
                 path: "courseContent",
                 populate: {

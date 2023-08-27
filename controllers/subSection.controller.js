@@ -1,12 +1,12 @@
 const SubSection = require("../models/subSection.model");
 const Section = require("../models/section.model");
-const { default: AppError } = require("../utils/error.utils");
+const { AppError } = require("../utils/error.utils");
 const { imageUploadToCloudinary } = require("../utils/imageUpload.util");
 
 exports.createSubSection = async function (req, res, next) {
     try {
         const { sectionId, title, timeDuration, description } = req.body;
-        const video = req.files.videoFile;
+        const video = req.files.video;
 
         if (!sectionId || !title || !timeDuration || !description)
             return next(new AppError("All fields are mandatory", 500));
@@ -22,7 +22,6 @@ exports.createSubSection = async function (req, res, next) {
             description,
             videoUrl: uploadDetails.secure_url,
         });
-        await subSection.save();
 
         const updatedSection = await Section.findByIdAndUpdate(
             sectionId,
@@ -34,10 +33,7 @@ exports.createSubSection = async function (req, res, next) {
             { new: true }
         );
         console.log(
-            await updatedSection
-                .findById(sectionId)
-                .populate("subSection")
-                .exec()
+            await Section.findById(sectionId).populate("subSection").exec()
         );
         res.status(200).json({
             success: true,
@@ -51,8 +47,9 @@ exports.createSubSection = async function (req, res, next) {
 exports.updateSubSection = async function (req, res, next) {
     try {
         const { subSectionId, title, timeDuration, description } = req.body;
-        const video = req.files.videoFile;
+        const video = req.files.video;
 
+        console.log("we are in update sub sectino");
         if (!subSectionId || !title || !timeDuration || !description)
             return next(new AppError("All fields are mandatory", 500));
 

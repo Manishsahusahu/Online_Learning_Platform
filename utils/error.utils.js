@@ -7,4 +7,6 @@ class AppError extends Error {
     }
 }
 
-module.exports = AppError;
+// console.log(new AppError("checking error", 400))
+
+module.exports = {AppError};

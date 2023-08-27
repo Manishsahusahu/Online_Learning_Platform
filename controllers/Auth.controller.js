@@ -1,6 +1,6 @@
 const User = require("../models/user.model.js");
 const OTP = require("../models/otp.model.js");
-const { default: AppError } = require("../utils/error.utils.js");
+const { AppError } = require("../utils/error.utils.js");
 const otpGenerator = require("otp-generator");
 const Profile = require("../models/profile.model.js");
 const bcrypt = require("bcrypt");
@@ -24,17 +24,15 @@ exports.sendOTP = async (req, res, next) => {
         if (user) return next(new AppError("User already exists!", 401));
 
         let otp = otpCreator();
-        let result = await OTP.findOne(otp);
+        let result = await OTP.findOne({ otp });
         while (result) {
             otp = otpCreator();
-            result = await OTP.findOne(otp);
+            result = await OTP.findOne({ otp });
         }
         console.log(otp);
 
         const otpPayload = { email, otp };
         const otpBody = await OTP.create(otpPayload);
-
-        await otpBody.save();
 
         res.status(200).json({
             success: true,
@@ -42,7 +40,7 @@ exports.sendOTP = async (req, res, next) => {
             otpBody,
         });
     } catch (error) {
-        next(new AppError(error.message, 500));
+        return next(new AppError(error.message, 500));
     }
 };
 
@@ -80,9 +78,8 @@ exports.signup = async (req, res, next) => {
         const recentOtp = await OTP.find({ email })
             .sort({ createdAt: -1 })
             .limit(1);
-
         if (!recentOtp) return next(new AppError("OTP not found", 400));
-        if (recentOtp !== otp)
+        if (recentOtp[0].otp !== otp)
             return next(new AppError("OTP does not match", 400));
 
         const profileDetails = await Profile.create({
@@ -129,7 +126,8 @@ exports.login = async (req, res, next) => {
                 new AppError("User does not exists, please sign up", 400)
             );
 
-        if (await bcrypt.compare(password, user.password))
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch)
             return next(new AppError("User or password is invalid", 400));
 
         const payload = {

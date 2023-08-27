@@ -1,6 +1,6 @@
 const Profile = require("../models/profile.model");
 const User = require("../models/user.model");
-const { default: AppError } = require("../utils/error.utils");
+const { AppError } = require("../utils/error.utils");
 const { imageUploadToCloudinary } = require("../utils/imageUpload.util");
 
 exports.updateProfile = async function (req, res, next) {
@@ -44,6 +44,7 @@ exports.deleteAccount = async function (req, res, next) {
     try {
         const { id } = req.user;
 
+
         const user = await User.findById(id);
         if (!user) return next(new AppError("User not found", 404));
 
@@ -70,7 +71,8 @@ exports.getAllUserDetails = async function (req, res, next) {
 
         res.status(200).json({
             success: true,
-            message: "User account has been deleted successfully",
+            message: "User details are fetched successfully",
+            user,
         });
     } catch (error) {
         return next(new AppError(error.message, 500));
@@ -100,7 +102,7 @@ exports.getEnrolledCourses = async function (req, res, next) {
 exports.updateDisplayPicture = async function (req, res, next) {
     try {
         const userId = req.user.id;
-        const image = req.files.image;
+        const image = req.files.displayPicture;
         if (!image) return next(new AppError("Image not found", 500));
 
         const imageResponse = await imageUploadToCloudinary(
@@ -108,6 +110,7 @@ exports.updateDisplayPicture = async function (req, res, next) {
             process.env.FOLDER_NAME
         );
         const userDetails = await User.findById(userId);
+
         if (!userDetails)
             return next(new AppError("user details not found", 500));
 
@@ -121,7 +124,7 @@ exports.updateDisplayPicture = async function (req, res, next) {
 
         res.status(200).json({
             success: true,
-            message: "Courses for user are fetched successfully",
+            message: "Display picture is updated successfully",
             newUser,
         });
     } catch (error) {

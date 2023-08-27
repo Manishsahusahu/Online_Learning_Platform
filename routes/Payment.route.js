@@ -3,7 +3,8 @@ const {
     verifySignature,
 } = require("../controllers/Payment.controller");
 
-const router = require("express").Router();
+const { Router } = require("express");
+const router = Router();
 
 router.post("/capturePayment", capturePayment);
 router.post("/verifySignature", verifySignature);

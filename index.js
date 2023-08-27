@@ -37,10 +37,10 @@ app.use(
 cloudinaryConnect();
 
 //routes
-// app.use("/auth/v1/course", courseRoute);
+app.use("/auth/v1/course", courseRoute);
 app.use("/auth/v1/user", userRoute);
-// app.use("/auth/v1/profile", profileRoute);
-// app.use("/auth/v1/payment", paymentRoute);
+app.use("/auth/v1/profile", profileRoute);
+app.use("/auth/v1/payment", paymentRoute);
 
 app.get("/", (req, res) => {
     res.json({

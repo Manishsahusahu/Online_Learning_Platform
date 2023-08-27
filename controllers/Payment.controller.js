@@ -2,7 +2,7 @@ const { default: mongoose } = require("mongoose");
 const { instance } = require("../config/razorpay.config");
 const Course = require("../models/course.model");
 const User = require("../models/user.model");
-const { default: AppError } = require("../utils/error.utils");
+const { AppError } = require("../utils/error.utils");
 const crypto = require("crypto");
 const mailSender = require("../utils/mailSender.utils");
 

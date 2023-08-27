@@ -10,16 +10,15 @@ const mailSender = async (email, title, body) => {
             },
         });
         let info = await transporter.sendMail({
-            from: "Online Education platform by Manish Sahu",
+            from: "20bca1649@cuchd.in",
             to: email,
             subject: title,
             html: body,
         });
-        console.log(info);
         return info;
     } catch (error) {
         console.log(error.message);
     }
 };
 
-module.exports= mailSender
+module.exports = mailSender;

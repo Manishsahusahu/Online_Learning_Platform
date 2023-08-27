@@ -1,5 +1,5 @@
 const Category = require("../models/category.model.js");
-const { default: AppError } = require("../utils/error.utils.js");
+const { AppError } = require("../utils/error.utils.js");
 
 exports.createCategory = async (req, res, next) => {
     try {

@@ -1,6 +1,6 @@
 const Section = require("../models/section.model");
 const Course = require("../models/course.model.js");
-const { default: AppError } = require("../utils/error.utils");
+const { AppError } = require("../utils/error.utils");
 
 exports.createSection = async function (req, res, next) {
     try {
@@ -9,9 +9,9 @@ exports.createSection = async function (req, res, next) {
         if (!sectionName || !courseId)
             return next(new AppError("All fields are mandatory", 400));
 
-        const section = await Section.create({ sectionName });
+        const section = await Section.create({ name: sectionName });
 
-        const updatedCourse = await Section.findByIdAndUpdate(
+        const updatedCourse = await Course.findByIdAndUpdate(
             courseId,
             {
                 $push: {

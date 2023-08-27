@@ -1,6 +1,6 @@
 const User = require("../models/user.model.js");
 const crypto = require("crypto");
-const { default: AppError } = require("../utils/error.utils.js");
+const { AppError } = require("../utils/error.utils.js");
 const mailSender = require("../utils/mailSender.utils.js");
 
 exports.resetPasswordToken = async (req, res, next) => {
@@ -29,7 +29,6 @@ exports.resetPasswordToken = async (req, res, next) => {
         res.status(200).json({
             success: true,
             message: "Reset password link sent successfully",
-            mailResponse,
         });
     } catch (error) {
         return next(new AppError(error.message, 400));
@@ -50,7 +49,7 @@ exports.resetPassword = async (req, res, next) => {
                 )
             );
 
-        const user = await User.findOne(token);
+        const user = await User.findOne({ token });
         if (!user) return next(new AppError("Token is invalid", 400));
 
         if (user.resetPasswordTokenExpires < Date.now())
