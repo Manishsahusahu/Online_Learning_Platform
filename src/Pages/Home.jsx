@@ -71,6 +71,32 @@ const Home = () => {
             codeColor={"text-yellow-25"}
           />
         </div>
+        <div>
+          <CodeBlocks
+            position={"lg:flex-row-reverse"}
+            heading={
+              <div className="font-semibold text-4xl">
+                Unlock your <HightlightText text={"Coding Potential"} /> with
+                our online courses
+              </div>
+            }
+            subHeading={
+              "Our courses are designed and taught by industry experts who have years of experience in coding and are passionate about sharing their knowledge with you."
+            }
+            ctabtn1={{
+              btnText: "try it yourself",
+              linkto: "/signup",
+              active: true,
+            }}
+            ctabtn2={{
+              btnText: "learn more",
+              linkto: "/login",
+              active: false,
+            }}
+            codeblock={`<!doctype html>\n<html lang="en">\n<head>\n<meta charset="UTF-8" />\n<link rel="icon" type="image/svg+xml" href="/vite.svg" />\n<meta name="viewport" content="width=device-width, initial-scale=1.0" />\n<title>Vite + React</title>\n</head>\n<body>\n<div id="root"></div>\n</body>\n</html>\n`}
+            codeColor={"text-yellow-25"}
+          />
+        </div>
       </div>
 
       {/* Section2 */}
