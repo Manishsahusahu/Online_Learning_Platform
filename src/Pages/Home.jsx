@@ -166,6 +166,12 @@ const Home = () => {
                 <InstructorSection />
             </div>
 
+            <div className=" mb-16 mt-3">
+                <h2 className="text-center text-2xl md:text-4xl font-semibold mt-8 text-richblack-5 mb-5">
+                    Reviews from other learners
+                </h2>
+                {/* <RatingSlider /> */}
+            </div>
             {/* Section4 */}
         </>
     );
