@@ -14,11 +14,11 @@ const CodeBlocks = ({
   codeColor,
 }) => {
   return (
-    <div className={`flex ${position} my-20 justify-between gap-10`}>
+    <div className={`flex ${position} my-20 justify-between gap-10 flex-col lg:flex-row `}>
       {" "}
-      <div className="flex flex-col w-[50%] gap-8">
+      <div className="flex flex-col lg:w-[50%] gap-8">
         {heading}
-        <div className="text-richblack-200 font-bold">{subHeading}</div>
+        <div className="text-richblack-300 font-bold text-sm md:text-lg">{subHeading}</div>
         <div className="flex gap-7 mt-7">
           <CTAButton active={ctabtn1.active} linkto={ctabtn1.linkto}>
             <div className="flex gap-2 items-center">
@@ -31,8 +31,8 @@ const CodeBlocks = ({
           </CTAButton>
         </div>
       </div>
-      <div className="flex w-[50%]">
-        <div className="text-center flex flex-col w-[10%] text-richblack-700 font-inter font-bold">
+      <div className="h-fit flex lg:w-[50%] py-3 glass">
+        <div className="text-center flex flex-col lg:w-[10%] text-richblack-700 font-inter font-bold ">
           <p>1</p>
           <p>2</p>
           <p>3</p>
@@ -50,14 +50,17 @@ const CodeBlocks = ({
         </div>
         {/* {codeblock} */}
         <div
-          className={`flex flex-col w-[90%] gap-2 font-bold font-mono ${codeColor} pr-2`}
+          className={`flex flex-col lg:w-[90%] gap-2 font-bold font-mono ${codeColor} px-2 relative`}
         >
+            <div className={`${backgroundGradient}`}></div>
           <TypeAnimation
             sequence={[codeblock, 5000, ""]}
             repeat={Infinity}
+
             style={{
               whiteSpace: "pre-line",
               display: "block",
+              fontSize: '16px'
             }}
             omitDeletionAnimation={true}
           />

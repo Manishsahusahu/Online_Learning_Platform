@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { FaArrowRight } from "react-icons/fa";
 import HightlightText from "../components/core/HomePage/HightlightText";
 import CTAButton from "../components/core/HomePage/CTAButton";
-import video from "../assets/testingVideo.mp4";
+import video from "../assets/Images/banner.mp4";
 import CodeBlocks from "../components/core/HomePage/CodeBlocks";
 
 const Home = () => {
@@ -41,7 +41,7 @@ const Home = () => {
           </CTAButton>
         </div>
 
-        <div className=" my-12 mx-3 shadow-blue-200 shadow-lg">
+        <div className=" my-12 mx-3 shadow-blue-200 shadow-xl">
           <video muted loop autoPlay src={video} typeof="video/mp4"></video>
         </div>
 
@@ -67,8 +67,9 @@ const Home = () => {
               linkto: "/login",
               active: false,
             }}
-            codeblock={`<!doctype html>\n<html lang="en">\n<head>\n<meta charset="UTF-8" />\n<link rel="icon" type="image/svg+xml" href="/vite.svg" />\n<meta name="viewport" content="width=device-width, initial-scale=1.0" />\n<title>Vite + React</title>\n</head>\n<body>\n<div id="root"></div>\n</body>\n</html>\n`}
-            codeColor={"text-yellow-25"}
+            codeblock={`<!doctype html>\n<html lang="en">\n<head>\n<meta charset="UTF-8" />\n<link rel="icon" type="image/svg+xml" href="/vite.svg" />\n<meta name="viewport" content="width=device-width, initial-scale=1.0" />\n<title>Vite + React</title>\n</head>\n<body>\n<div id="root"></div>\n</body>\n</html>`}
+            codeColor={"text-yellow-5"}
+            backgroundGradient={"grad"}
           />
         </div>
         <div>
