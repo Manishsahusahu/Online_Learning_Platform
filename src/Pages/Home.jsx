@@ -7,6 +7,7 @@ import video from "../assets/Images/banner.mp4";
 import CodeBlocks from "../components/core/HomePage/CodeBlocks";
 import TimelineSection from "../components/core/HomePage/TimelineSection";
 import LearningLanguageSection from "../components/core/HomePage/LearningLanguageSection";
+import InstructorSection from "../components/core/HomePage/InstructorSection";
 
 const Home = () => {
     return (
@@ -160,6 +161,11 @@ const Home = () => {
             </div>
 
             {/* Section3 */}
+
+            <div className="w-11/12 mx-auto max-w-maxContent flex-col items-center justify-between gap-8 first-letter bg-richblack-900 text-white">
+                <InstructorSection />
+            </div>
+
             {/* Section4 */}
         </>
     );

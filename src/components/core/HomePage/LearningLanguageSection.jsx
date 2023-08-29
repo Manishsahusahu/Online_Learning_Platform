@@ -34,7 +34,7 @@ const LearningLanguageSection = () => {
                     <img
                         src={plan_your_lesson}
                         alt="KNowYourProgressImage"
-                        className="object-contain md:-ml-36"
+                        className="object-contain md:-ml-36" 
                     />
                 </div>
 
