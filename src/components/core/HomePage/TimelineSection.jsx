@@ -53,7 +53,7 @@ const TimelineSection = () => {
                         );
                     })}
                 </div>
-                <div className="w-[45%] relative shadow-blue-200">
+                <div className="lg:w-[45%] relative shadow-blue-200">
                     <img
                         src={timelineImage}
                         alt="timelineImage"

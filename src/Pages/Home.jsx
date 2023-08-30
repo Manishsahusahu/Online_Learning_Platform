@@ -8,6 +8,7 @@ import CodeBlocks from "../components/core/HomePage/CodeBlocks";
 import TimelineSection from "../components/core/HomePage/TimelineSection";
 import LearningLanguageSection from "../components/core/HomePage/LearningLanguageSection";
 import InstructorSection from "../components/core/HomePage/InstructorSection";
+import ExploreMore from "../components/core/HomePage/ExploreMore";
 
 const Home = () => {
     return (
@@ -110,10 +111,11 @@ const Home = () => {
                         backgroundGradient={"grad"}
                     />
                 </div>
+                <ExploreMore />
             </div>
 
             {/* Section2 */}
-
+            <div className="hidden lg:block lg:h-[200px]"></div>
             <div className="bg-pure-greys-5 text-richblack-700">
                 <div className="homepage_bg h-[310px]">
                     <div className="w-11/12 max-w-maxContent flex flex-col items-center justify-between gap-5 mx-auto">
