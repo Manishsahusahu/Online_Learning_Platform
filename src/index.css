@@ -554,20 +554,24 @@ details>summary::-webkit-details-marker {
     }
 }
 
-.activeTabButton{
-    animation: waveBackground 1s ease-in-out infinite alternate;
+.activeTabButton {
+    /* animation: waveBackground 1s ease-in-out infinite alternate; */
     /* color: black; */
+    /* background: linear-gradient(to right, #FF0000, blue, #00FF00); */
+    background: linear-gradient(to right, blue, #FF0000, #00FF00);
 
 }
 
 @keyframes waveBackground {
     0% {
-        background: linear-gradient(to right, #FF0000, blue,  #00FF00);
+        background: linear-gradient(to right, #FF0000, blue, #00FF00);
     }
+
     50% {
-        background: linear-gradient(to right,#00FF00, #FF0000, blue  );
+        background: linear-gradient(to right, #00FF00, #FF0000, blue);
     }
+
     100% {
-        background: linear-gradient(to right, blue,  #00FF00, #FF0000);
+        background: linear-gradient(to right, blue, #00FF00, #FF0000);
     }
 }
