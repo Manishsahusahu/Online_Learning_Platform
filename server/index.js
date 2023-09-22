@@ -1,54 +1,60 @@
-require("dotenv").config();
-const express = require("express");
-const app = express();
+const express=require('express');
 
-const courseRoute = require("./routes/Course.route");
-const paymentRoute = require("./routes/Payment.route");
-const profileRoute = require("./routes/Profile.route");
-const userRoute = require("./routes/User.route");
+const app=express();
 
-const database = require("./config/databse.config");
-const cookieParser = require("cookie-parser");
-const cors = require("cors");
-const { cloudinaryConnect } = require("./config/cloudinary.config");
-const fileUpload = require('express-fileupload');
+const userRoutes=require('./routes/User');
+const paymentRoutes=require('./routes/Payments');
+const profileRoutes=require('./routes/Profile');
+const CourseRoutes=require('./routes/Course');
 
-const PORT = process.env.PORT || 4000;
+const database=require('./config/database');
+const cookieParser=require("cookie-parser")
 
+const cors=require('cors');
+const fileUpload=require("express-fileupload");
+const {cloudnairyconnect}=require('./config/cloudinary');
+
+const dotenv=require("dotenv")
+dotenv.config();
+
+const PORT=process.env.PORT || 5000;
 database.connect();
 
-//middlewares
 app.use(express.json());
 app.use(cookieParser());
-app.use(
-    cors({
-        origin: `http://localhost:5173/`,
+
+app.use(cors(
+    {
+        origin: ["https://study-notion-eta.vercel.app","http://localhost:3000","www.studynotion.fun","studynotion.fun","https://studynotion.fun","https://www.studynotion.fun"],
         credentials: true,
-    })
-);
+    }
+));
 
-app.use(
-    fileUpload({
+app.use(fileUpload(
+    {
         useTempFiles: true,
-        tempFileDir: "/tmp",
-    })
-);
+        tempFileDir: "/tmp"
+    }
+));
 
-cloudinaryConnect();
+cloudnairyconnect();
 
-//routes
-app.use("/auth/v1/course", courseRoute);
-app.use("/auth/v1/user", userRoute);
-app.use("/auth/v1/profile", profileRoute);
-app.use("/auth/v1/payment", paymentRoute);
+app.use('/api/v1/auth',userRoutes);
 
-app.get("/", (req, res) => {
-    res.json({
-        success: true,
-        message: "Server is running",
-    });
-});
+app.use('/api/v1/payment',paymentRoutes);
 
-app.listen(PORT, function () {
-    console.log(`Server is running at http://localhost:${PORT}`);
-});
+app.use('/api/v1/profile',profileRoutes);
+
+app.use('/api/v1/course',CourseRoutes);
+
+app.use('/api/v1/contact',require('./routes/ContactUs'));
+
+
+app.get("/",(req, res)=>{
+    res.status(200).json({
+        message:"Welcome to the API"
+    })});
+
+app.listen(PORT,()=>{
+    console.log(`Server is running on port ${PORT}`);
+})
