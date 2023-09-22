@@ -5,9 +5,9 @@ import { NavbarLinks } from "../../data/navbar-links";
 import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { TiShoppingCart } from "react-icons/ti";
-import  ProfileDropDown from '../core/Auth/ProfileDropDown'
-import { categories } from '../../services/apis'
-import { apiConnector } from '../../services/apiConnector'
+import ProfileDropDown from "../core/Auth/ProfileDropDown";
+import { categories } from "../../services/apis";
+import { apiConnector } from "../../services/apiConnector";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
@@ -16,15 +16,15 @@ import { HiSearch } from "react-icons/hi";
 import { useNavigate } from "react-router";
 
 const NavBar = ({ setProgress }) => {
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
 
-  const {token}=useSelector(state=>state.auth);
-  const {user}=useSelector(state=>state.profile);
-  const {totalItems}=useSelector(state=>state.cart);
+  const { token } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.profile);
+  const { totalItems } = useSelector((state) => state.cart);
   const [prevScrollPos, setPrevScrollPos] = useState(0);
-  const [visible, setVisible] = useState(true)
-  const [searchValue, setSearchValue] = useState("")
-  const navigate=useNavigate();
+  const [visible, setVisible] = useState(true);
+  const [searchValue, setSearchValue] = useState("");
+  const navigate = useNavigate();
 
   const location = useLocation();
   const matchRoutes = (routes) => {
@@ -95,7 +95,10 @@ const NavBar = ({ setProgress }) => {
             dispatch(setProgress(100));
           }}
         >
-          <img src={logo} width={160} alt="Study Notion" height={42}></img>
+          <span className="text-white text-xl font-serif font-semibold">
+            Learn with Manish
+          </span>
+          {/* <img src={logo} width={160} alt="Learn with Manish" height={42}></img> */}
         </Link>
         {/* mobile Navbar */}
         {user && user?.accountType !== "Instructor" && (
